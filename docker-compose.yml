@@ -1,0 +1,21 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    container_name: muzix-mongo
+    network_mode: host
+
+  spring:
+    image: app
+    build: muzix-mongodb/
+    restart: always
+    network_mode: host
+    container_name: muzix-application
+    depends_on:
+      - mongodb
+    ports:
+      - 8100:8100
+    expose:
+      - 8100
